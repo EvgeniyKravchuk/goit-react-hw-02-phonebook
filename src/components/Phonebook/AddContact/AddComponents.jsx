@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+
+  flex-direction: column;
 
   background-color: #040836;
-
-  text-align: center;
 
   padding: 20px;
 `;
@@ -48,12 +50,13 @@ export const Section = styled.div`
   justify-content: center;
   align-items: center;
 
-  flex-direction: column;
+  flex-wrap: wrap;
 
   border: 1px solid white;
 
   padding: 10px;
   margin: 0px;
+  margin-bottom: 10px;
 
   width: 500px;
 `;

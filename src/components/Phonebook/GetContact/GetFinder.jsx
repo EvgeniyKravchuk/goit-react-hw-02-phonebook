@@ -1,4 +1,5 @@
-import { Input, Undertitle } from "./GetComponents.jsx";
+import PropTypes from "prop-types";
+import { Input, Undertitle } from "./GetComponents.styled.jsx";
 
 export default function GetFinder({ setFilter }) {
   return (
@@ -8,3 +9,7 @@ export default function GetFinder({ setFilter }) {
     </>
   );
 }
+
+GetFinder.propTypes = {
+  setFilter: PropTypes.func.isRequired,
+};

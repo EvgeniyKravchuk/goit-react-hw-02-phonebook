@@ -4,7 +4,7 @@ import AddContact from "./components/Phonebook/AddContact/AddContact.jsx";
 import {
   Wrapper,
   Title,
-} from "./components/Phonebook/AddContact/AddComponents.jsx";
+} from "./components/Phonebook/AddContact/AddComponents.styled.jsx";
 
 class App extends Component {
   state = {

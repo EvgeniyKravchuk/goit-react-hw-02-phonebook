@@ -1,4 +1,5 @@
-import { Undertitle, List, Item, Button } from "./GetComponents.jsx";
+import PropTypes from "prop-types";
+import { Undertitle, List, Item, Button } from "./GetComponents.styled.jsx";
 
 export default function GetList({ del, filteredContacts }) {
   return (
@@ -20,3 +21,8 @@ export default function GetList({ del, filteredContacts }) {
     </>
   );
 }
+
+GetList.propTypes = {
+  del: PropTypes.func.isRequired,
+  filteredContacts: PropTypes.array.isRequired,
+};

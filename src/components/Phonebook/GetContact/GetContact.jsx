@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import GetFinder from "./GetFinder.jsx";
 import GetList from "./GetList.jsx";
-import { Undertitle, Section } from "./GetComponents.jsx";
+import { Undertitle, Section } from "./GetComponents.styled.jsx";
 
 export default function GetContact({
   filter,
@@ -18,3 +19,10 @@ export default function GetContact({
     </>
   );
 }
+
+GetContact.propTypes = {
+  del: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+  filteredContacts: PropTypes.array.isRequired,
+  setFilter: PropTypes.func.isRequired,
+};

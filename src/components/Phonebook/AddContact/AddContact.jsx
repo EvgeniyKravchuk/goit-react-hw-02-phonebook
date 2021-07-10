@@ -1,4 +1,5 @@
-import { Input, Button, Section, Undertitle } from "./AddComponents.jsx";
+import PropTypes from "prop-types";
+import { Input, Button, Section, Undertitle } from "./AddComponents.styled.jsx";
 
 export default function AddContact({ getName, getNumber, add, name, number }) {
   return (
@@ -33,3 +34,11 @@ export default function AddContact({ getName, getNumber, add, name, number }) {
     </Section>
   );
 }
+
+AddContact.propTypes = {
+  add: PropTypes.func.isRequired,
+  getName: PropTypes.func.isRequired,
+  getNumber: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+};

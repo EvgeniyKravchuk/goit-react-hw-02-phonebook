@@ -1,83 +1,29 @@
-import { Component } from "react";
-import GetContact from "./components/Phonebook/GetContact/GetContact.jsx";
-import AddContact from "./components/Phonebook/AddContact/AddContact.jsx";
-import {
-  Wrapper,
-  Title,
-} from "./components/Phonebook/AddContact/AddComponents.styled.jsx";
+import React, { Component } from "react";
+import "./App.module.css";
+import { Wrapper, Title } from "./components/General.styled";
+import ContactForm from "./components/contactForm/ContactForm";
+import ContactsList from "./components/contactsList/ContactsList";
 
-class App extends Component {
+export default class App extends Component {
   state = {
-    contacts: [],
-    filter: "",
+    contacts: [
+      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
+      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
+      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
+      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
+    ],
     name: "",
     number: "",
-  };
-
-  setNameValue = ({ currentTarget }) => {
-    this.setState({ name: currentTarget.value });
-  };
-
-  setNumberValue = ({ currentTarget }) => {
-    this.setState({ number: currentTarget.value });
-  };
-
-  setFilterValue = ({ currentTarget }) => {
-    this.setState({ filter: currentTarget.value });
-  };
-
-  deleteContact = ({ currentTarget }) => {
-    const newContacts = this.state.contacts.filter(
-      (contact) => contact.id !== currentTarget.id
-    );
-
-    this.setState({ contacts: newContacts });
-  };
-
-  clear = () => {
-    this.setState({ name: "", number: "" });
-  };
-
-  addContact = () => {
-    if (this.state.name !== "" && this.state.number !== "") {
-      this.setState((prevState) => ({
-        contacts: [
-          ...prevState.contacts,
-          {
-            id: this.state.number,
-            name: this.state.name,
-            number: this.state.number,
-          },
-        ],
-      }));
-      this.clear();
-    }
+    filter: "",
   };
 
   render() {
-    const filteredContacts = this.state.contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
-    );
-
     return (
       <Wrapper>
         <Title>Телефонная книга:</Title>
-        <AddContact
-          getName={this.setNameValue}
-          getNumber={this.setNumberValue}
-          add={this.addContact}
-          name={this.state.name}
-          number={this.state.number}
-        />
-        <GetContact
-          filter={this.state.filter}
-          setFilter={this.setFilterValue}
-          del={this.deleteContact}
-          filteredContacts={filteredContacts}
-        />
+        <ContactForm />
+        <ContactsList contacts={this.state.contacts} />
       </Wrapper>
     );
   }
 }
-
-export default App;

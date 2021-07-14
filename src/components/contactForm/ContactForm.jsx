@@ -1,17 +1,54 @@
 import React, { Component } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Input, Label, Button, Form } from "./ContactForm.styled";
 
 export default class ContactForm extends Component {
-  state = {
-    name: "",
-    number: "",
-  };
+  constructor(props) {
+    super(props);
 
-  handleChange = (evt) => {
+    this.state = {
+      name: "",
+      number: "",
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(evt) {
     const { name } = evt.target;
 
     this.setState({ [name]: evt.target.value });
-  };
+  }
+
+  handleSubmit(evt) {
+    const { name, number } = this.state;
+    const id = uuidv4();
+    const contact = { id, name, number };
+    const notUniqueName = this.props.contacts.some(
+      (item) => item.name === this.state.name
+    );
+    const notUniqueNumber = this.props.contacts.some(
+      (item) => item.number === this.state.number
+    );
+
+    evt.preventDefault();
+
+    if (notUniqueName) {
+      return alert(this.state.name + " уже добавлен(а) в список контактов");
+    } else if (notUniqueNumber) {
+      return alert("Уже добавлен контакт с номером: " + this.state.number);
+    } else if (this.state.name === "" || this.state.number === "") {
+      return alert("Пожалуйста, введите Имя и номер.");
+    } else {
+      this.props.addContact(contact);
+      this.clear();
+    }
+  }
+
+  clear() {
+    this.setState({ name: "", number: "" });
+  }
 
   render() {
     const { name, number } = this.state;
@@ -44,7 +81,9 @@ export default class ContactForm extends Component {
             value={number}
           />
         </Label>
-        <Button type="submit">Подтвердить</Button>
+        <Button type="submit" onClick={this.handleSubmit}>
+          Подтвердить
+        </Button>
       </Form>
     );
   }

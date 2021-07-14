@@ -17,12 +17,37 @@ export default class App extends Component {
     filter: "",
   };
 
+  addContact = (contact) => {
+    this.setState((prevState) => ({
+      contacts: [...prevState.contacts, contact],
+    }));
+  };
+
+  deleteContact = (evt) => {
+    const contactForDelete = this.state.contacts.findIndex(
+      (contact) => contact.id === evt.currentTarget.id
+    );
+    const newContacts = this.state.contacts;
+
+    newContacts.splice(contactForDelete, 1);
+
+    this.setState({
+      contacts: newContacts,
+    });
+  };
+
   render() {
     return (
       <Wrapper>
         <Title>Телефонная книга:</Title>
-        <ContactForm />
-        <ContactsList contacts={this.state.contacts} />
+        <ContactForm
+          addContact={this.addContact}
+          contacts={this.state.contacts}
+        />
+        <ContactsList
+          contacts={this.state.contacts}
+          deleteContact={this.deleteContact}
+        />
       </Wrapper>
     );
   }

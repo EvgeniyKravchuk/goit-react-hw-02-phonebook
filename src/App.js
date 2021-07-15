@@ -3,17 +3,11 @@ import "./App.module.css";
 import { Wrapper, Title } from "./components/General.styled";
 import ContactForm from "./components/contactForm/ContactForm";
 import ContactsList from "./components/contactsList/ContactsList";
+import Filter from "./components/filter/Filter";
 
 export default class App extends Component {
   state = {
-    contacts: [
-      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-    ],
-    name: "",
-    number: "",
+    contacts: [],
     filter: "",
   };
 
@@ -36,18 +30,41 @@ export default class App extends Component {
     });
   };
 
+  handleChange = (evt) => {
+    const { name } = evt.target;
+
+    this.setState({ [name]: evt.target.value });
+  };
+
+  filter = () => {
+    const { contacts } = this.state;
+
+    const filteredContacts = contacts.filter((contact) => {
+      return contact.name
+        .toLowerCase()
+        .includes(this.state.filter.toLowerCase());
+    });
+
+    return filteredContacts;
+  };
+
   render() {
+    const { filter, contacts } = this.state;
+    const notification = <h2>Нет сохраненных контактов `=(</h2>;
+
     return (
       <Wrapper>
         <Title>Телефонная книга:</Title>
-        <ContactForm
-          addContact={this.addContact}
-          contacts={this.state.contacts}
-        />
-        <ContactsList
-          contacts={this.state.contacts}
-          deleteContact={this.deleteContact}
-        />
+        <ContactForm addContact={this.addContact} contacts={contacts} />
+        <Filter filter={filter} onChange={this.handleChange} />
+        {this.state.contacts.length < 1 ? (
+          notification
+        ) : (
+          <ContactsList
+            contacts={this.filter}
+            deleteContact={this.deleteContact}
+          />
+        )}
       </Wrapper>
     );
   }

@@ -13,8 +13,10 @@ export const Label = styled.label`
   font-weight: 600;
 
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  justify-content: ${(props) => (props.filter ? "center" : "space-between")};
+  align-items: ${(props) => (props.filter ? "center" : "baseline")};
+
+  flex-direction: ${(props) => (props.filter ? "column" : "row")};
 
   transition-duration: 500ms;
 
